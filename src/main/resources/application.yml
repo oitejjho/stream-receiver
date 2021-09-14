@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: basic
+  r2dbc:
+    pool:
+      max-size: '20'
+      initial-size: '5'
+      max-idle-time: 30m
+      validation-query: SELECT 1
+    password: root
+    url: r2dbc:pool:mysql://localhost:3307/test
+    username: root
+
+
+rabbit:
+  default-endpoint-name: standalone
+  endpoints:
+    standalone:
+      host: localhost
+      virtualHost: tmn-th-alpha
+      username: consumer
+      password: consumer
+      group: consumer
