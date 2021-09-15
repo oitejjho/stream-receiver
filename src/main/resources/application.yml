@@ -21,3 +21,12 @@ rabbit:
       username: consumer
       password: consumer
       group: consumer
+      content-type: application/json
+
+mail:
+  host: localhost
+  port: 8025
+  timeout: 90000
+  connectionTimeout: 90000
+  retry-attempts: 3
+  retry-interval: 5000
