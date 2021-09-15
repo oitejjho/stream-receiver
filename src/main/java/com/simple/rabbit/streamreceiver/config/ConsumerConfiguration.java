@@ -3,7 +3,6 @@ package com.simple.rabbit.streamreceiver.config;
 import com.pivotal.rabbitmq.RabbitEndpointService;
 import com.pivotal.rabbitmq.ReactiveRabbit;
 import com.pivotal.rabbitmq.topology.TopologyBuilder;
-import com.simple.rabbit.streamreceiver.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +23,7 @@ public class ConsumerConfiguration {
     String queueName;
 
 
-    public ConsumerConfiguration(RabbitEndpointService rabbit, Consumer<TopologyBuilder> topology, UserRepository userRepository, EmailService emailService) {
+    public ConsumerConfiguration(RabbitEndpointService rabbit, Consumer<TopologyBuilder> topology, EmailService emailService) {
         this.rabbit = rabbit;
         this.topology = topology;
         this.emailService = emailService;
