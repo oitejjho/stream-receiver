@@ -3,6 +3,7 @@ package com.simple.rabbit.streamreceiver.config;
 import com.pivotal.rabbitmq.RabbitEndpointService;
 import com.pivotal.rabbitmq.ReactiveRabbit;
 import com.pivotal.rabbitmq.topology.TopologyBuilder;
+import com.simple.rabbit.streamreceiver.model.entity.SubscriptionCompleteEvent;
 import com.simple.rabbit.streamreceiver.model.entity.UserEntity;
 import com.simple.rabbit.streamreceiver.repository.UserRepository;
 import org.slf4j.Logger;
@@ -49,9 +50,12 @@ public class ConsumerConfiguration {
 
         return rabbit
                 .declareTopology(topology)
-                .createTransactionalConsumerStream(queueName, Integer.class)
+                .createTransactionalConsumerStream(queueName, SubscriptionCompleteEvent.class)
+                .whenReceiveIllegalEvents()
+                .alwaysReject()
+                .then()
                 .receive()
-//                .delayElements(Duration.ofSeconds(5))
+                .delayElements(Duration.ofSeconds(5))
                 .doOnNext(number -> log.info("received number : {}", number.get()))
                 .doOnNext(number -> {
 
@@ -62,21 +66,21 @@ public class ConsumerConfiguration {
                         throw new RuntimeException();
                     }
 
-                    UserEntity userEntity = new UserEntity();
+                    /*UserEntity userEntity = new UserEntity();
                     userEntity.setCardId(UUID.randomUUID().toString());
                     userEntity.setFirstName("oitejjho");
                     userEntity.setSecondName("dutta");
                     userEntity.setType("NOTHING");
                     userEntity.setStatus(1);
-                    userEntity.setLevel(number.get());
+                    userEntity.setLevel(1);
                     userEntity.setDateOfBirth("27-11-1991");
                     userEntity.setAge(31);
                     userRepository.save(userEntity)
                             .doOnNext(entity -> log.info("Message persisted for value {}", entity.getLevel()))
-                            .subscribe();
+                            .subscribe();*/
                 })
                 .transform(ReactiveRabbit
-                        .<Integer>rejectWhen(RuntimeException.class, Exception.class)
+                        .<SubscriptionCompleteEvent>rejectWhen(RuntimeException.class, Exception.class)
                         .elseCommit())
 //                .doOnNext(number -> log.debug("Processed: {}", number.get()))
                 .subscribe(number -> expectedMessage.countDown());

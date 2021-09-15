@@ -1,5 +1,6 @@
 package com.simple.rabbit.streamreceiver.config;
 
+import com.pivotal.rabbitmq.topology.ExchangeType;
 import com.pivotal.rabbitmq.topology.TopologyBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,8 +25,10 @@ public class TopologyConfiguration {
     private Consumer<TopologyBuilder> topologyWithDeadLetterQueue(String name) {
         return (topologyBuilder) -> topologyBuilder
                 .declareExchange(name)
+                .type(ExchangeType.direct)
                 .and()
                 .declareExchange(name + "-dlx")
+                .type(ExchangeType.direct)
                 .and()
                 .declareQueue(name + "-dlx")
                     .boundTo(name + "-dlx")
