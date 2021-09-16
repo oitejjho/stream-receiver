@@ -25,13 +25,13 @@ public class TopologyConfiguration {
         return (topologyBuilder) -> topologyBuilder
                 .declareExchange(name)
                 .and()
-                .declareExchange(name + "-dlx")
+                .declareExchange(name + ".dlx")
                 .and()
-                .declareQueue(name + "-dlx")
-                    .boundTo(name + "-dlx")
+                .declareQueue(name + ".dlq")
+                    .boundTo(name + ".dlx")
                 .and()
                 .declareQueue(name)
-                    .withDeadLetterExchange(name + "-dlx")
+                    .withDeadLetterExchange(name + ".dlx")
                     .boundTo(name);
     }
 
