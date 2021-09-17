@@ -62,6 +62,7 @@ $ java -jar target/stream-receiver-0.0.1-SNAPSHOT.jar
 ## Improvements
 * API documentation using swagger-ui and open-api docs
 * 100% Unit test code coverage
+* It can be implemented as a serverless architure
 * Containerization
 * Integration with CICD i.e. jenkins / rancher
 * Metrics Expose
