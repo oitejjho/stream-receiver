@@ -19,6 +19,7 @@
 ## Introduction
 
 This service is responsible for consuming successful subscription event and send email
+* [Architecture](https://drive.google.com/file/d/1XGGeUXccthocw9K2tq2LzusGMpywMcKN/view?usp=sharing)
 
 ## Features
 * Developed using spring reactive 
