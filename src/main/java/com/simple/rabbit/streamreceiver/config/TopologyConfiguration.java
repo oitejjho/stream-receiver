@@ -11,7 +11,9 @@ import java.util.function.Consumer;
 @Configuration
 public class TopologyConfiguration {
 
-    @Value("${queue:numbers}")
+    @Value("${rabbit.endpoints.standalone.exchange:emails}")
+    String exchangeName;
+    @Value("${rabbit.endpoints.standalone.queue:emails}")
     String queueName;
 
     private Consumer<TopologyBuilder> topologyWithDeadLetterQueue(String name) {
@@ -20,7 +22,7 @@ public class TopologyConfiguration {
                 .type(ExchangeType.direct)
                 .and()
                 .declareQueue(name)
-                    .boundTo(name);
+                    .boundTo(exchangeName);
     }
 
     @Bean

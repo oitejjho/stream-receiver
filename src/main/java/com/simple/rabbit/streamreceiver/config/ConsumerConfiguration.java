@@ -19,7 +19,7 @@ public class ConsumerConfiguration {
     private static final Logger log = LoggerFactory.getLogger(ConsumerConfiguration.class);
     private final Consumer<TopologyBuilder> topology;
     private final RabbitEndpointService rabbit;
-    @Value("${queue:numbers}")
+    @Value("${rabbit.endpoints.standalone.queue:emails}")
     String queueName;
 
 

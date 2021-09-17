@@ -7,7 +7,8 @@ rabbit:
   endpoints:
     standalone:
       host: localhost
-      virtualHost: tmn-th-alpha
-      username: consumer
-      password: consumer
+      username: guest
+      password: guest
       group: consumer
+      exchange: emails
+      queue: emails
